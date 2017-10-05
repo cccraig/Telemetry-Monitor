@@ -8,11 +8,9 @@
   },
   "repository": "https://github.com/cccraig/Telemetry-Monitor",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Robot",
+    "UAV",
+    "Telemetry"
   ],
   "author": "GitHub",
   "license": "CC0-1.0",
@@ -21,7 +19,7 @@
   },
   "dependencies": {
     "bootstrap": "3.3.7",
-    "canvas-gauges": "2.1.4-radial",
+    "canvas-gauges": "2.1.4",
     "jquery": "3.2.1"
   }
 }

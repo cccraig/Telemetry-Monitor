@@ -14,9 +14,14 @@
 	<!-- Templates -->
 	<link data-id="compass" rel="import" href="sections/compass.html">
 	<link data-id="speed-gauge" rel="import" href="sections/speed-gauge.html">
+	<link data-id="temp-gauge" rel="import" href="sections/temp-gauge.html">
+	<link data-id="motor-gauge" rel="import" href="sections/motor-gauge.html">
 	<link data-id="led" rel="import" href="sections/led.html">
 
 	<style>
+		canvas {
+			z-index: 1 !important;
+		}
 		.test {
 			border: 1px solid red;
 		}
@@ -32,20 +37,32 @@
 			height: 100%;
 			padding: 10px 10px 10px 10px;
 		}
+		#motor-container {
+			position:relative;
+		}
+		#motor-container canvas, #motor-led-1 {
+			position: absolute;
+		}
+		.motor-led-1 {
+			transform:translateY(299px);
+			transform:translateX(25px);
+			z-index: 25000 !important;
+		}
+
 	</style>
 </head>
 <body>
 	<div id="content">
 		<div class="row">
-			<div class="col-xs-4" id="speed-gauge"></div>
-			<div class="col-xs-4" id="compass"></div>
-			<div class="col-xs-4"></div>
+			<div align="center" class="col-xs-4" id="speed-gauge"></div>
+			<div align="center" class="col-xs-4" id="compass"></div>
+			<div align="center" class="col-xs-4" id="temp-gauge"></div>
 		</div>
-
 		<div class="row">
-			<div class="col-xs-4" id="led"></div>
-			<div class="col-xs-4" id="led"></div>
-			<div class="col-xs-4" id="led"></div>
+			<div align="center" class="col-xs-4" id="motor-gauge"></div>
+		</div>
+		<div class="row">
+			<!-- <div class="col-xs-12" id="led"></div> -->
 		</div>
 	</div>
 

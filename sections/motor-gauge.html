@@ -1,0 +1,46 @@
+<template class="task-template">
+	<div style="height:150px;">
+		<div class="col-xs-1">
+			<div class="row">
+				<div class="col-xs-12 motor-led-1">
+					<div class="led-box">
+						<div id="signal" class="led-green">V</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 motor-led-1">
+					<div class="led-box">
+						<div id="signal" class="led-green">A</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div align="center" class="col-xs-11">
+			<canvas 
+				data-type="linear-gauge" 
+				data-width="600" 
+				data-height="160" 
+				data-border-radius="0" 
+				data-borders="0" 
+				data-bar-begin-circle="false"
+				data-color-units="#f00" 
+				data-minor-ticks="5" 
+				data-value="0" 
+				data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+				data-tick-side="right" 
+				data-tick-width="5"
+				data-number-side="right" 
+				data-needle-side="right" 
+				data-animation-rule="bounce" 
+				data-animation-duration="750" 
+				data-bar-stroke-width="2" 
+				data-value-box-border-radius="0" 
+				data-value-text-shadow="false"
+				data-borders="false" 
+				data-border-shadow-width="0">
+			</canvas>
+		</div>
+	</div>
+</template>
