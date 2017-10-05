@@ -18,8 +18,9 @@
     "electron": "~1.7.8"
   },
   "dependencies": {
-    "bootstrap": "3.3.7",
-    "canvas-gauges": "2.1.4",
-    "jquery": "3.2.1"
+    "bootstrap": "^3.3.7",
+    "canvas-gauges": "^2.1.4",
+    "electron-tabs": "^0.7.3",
+    "jquery": "^3.2.1"
   }
 }
