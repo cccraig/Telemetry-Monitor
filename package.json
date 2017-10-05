@@ -1,12 +1,12 @@
 {
-  "name": "electron-quick-start",
+  "name": "Telemetry Monitor",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A Robot and UAV Telemetry Monitor",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/cccraig/Telemetry-Monitor",
   "keywords": [
     "Electron",
     "quick",
