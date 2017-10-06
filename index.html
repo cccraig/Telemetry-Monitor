@@ -16,6 +16,7 @@
 	<link data-id="motor-gauge" rel="import" href="sections/motor-gauge.html">
 	<link data-id="battery-gauge" rel="import" href="sections/battery-gauge.html">
 	<link data-id="settings" rel="import" href="sections/settings.html">
+	<!-- <link data-id="led" rel="import" href="sections/led.html"> -->
 
 	<!-- Style -->
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
@@ -42,14 +43,26 @@
 <body>
 
 	<!-- Top level controls -->
-	<div class="content">
-		<ul class="nav nav-pills orange">
-			<li class="active"><a data-toggle="tab" href="#home">Main</a></li>
-			<li><a data-toggle="tab" href="#menu1">Motors</a></li>
-			<li><a data-toggle="tab" href="#menu2">Options</a></li>
-		</ul>
-	</div>
+	<div class="row">
+		<div class="col-xs-2">
+			<div class="content">
+				<ul class="nav nav-pills">
+					<li class="active"><a data-toggle="tab" href="#home">Main</a></li>
+					<li><a data-toggle="tab" href="#menu1">Motors</a></li>
+					<li><a data-toggle="tab" href="#menu2">Options</a></li>
+				</ul>
+			</div>
+		</div>
 
+		<div class="col-xs-6">
+			<div class="content">
+				<ul class="nav nav-pills">
+					<li class="active"><a data-toggle="tab" href="#mainvideo">Video</a></li>
+					<li><a data-toggle="tab" href="#map">Map</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
 	
 	<div class='tab-content'>
 		<!-- Home -->
@@ -68,17 +81,46 @@
 					<div class="row">
 						<div align="center" class="col-xs-12" id="battery-gauge"></div>
 					</div>
+					<div align="center" class="row">
+						<h4>Serial Port</h4>
+					</div>
+					<div class="row">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-2">
+							<div class="led-box">
+								<div id="signal" class="led-green"></div>
+							</div>
+						</div>
+						<div class="col-xs-4" style="padding: 5px 0px 10px 0px;">
+							<select class="form-control" id="serialports"></select>
+						</div>
+						<div class="col-xs-4" style="padding: 5px 0px 10px 10px;">
+							<select class="form-control" id="bauds">
+								<option>9600</option>
+								<option>19200</option>
+								<option>38400</option>
+								<option>57600</option>
+								<option>115200</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-2">
+							<div class="led-box">
+								<div id="alerts" class="led-green"></div>
+							</div>
+						</div>
+						<div class="col-xs-8" style="padding: 5px 0px 10px 0px;">
+							<input type="text" class="form-control" id="msg" readonly placeholder="Error Alerts">
+						</div>
+					</div>
+
 				</div>
 
 				<!-- Video and Map Tab -->
 				<div class="col-xs-8">
-					<div class="content">
-						<ul class="nav nav-pills orange">
-							<li class="active"><a data-toggle="tab" href="#mainvideo">Video</a></li>
-							<li><a data-toggle="tab" href="#map">Map</a></li>
-						</ul>
-					</div>
-
 					<div class='tab-content'>
 						<div id="mainvideo" class='tab-pane fade in active'>
 							<div class="row">
@@ -115,6 +157,7 @@
 
 	<script>
 		require('./assets/imports');
+		require('./assets/serial');
 	</script>
 </body>
 </html>
