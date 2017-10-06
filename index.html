@@ -15,7 +15,7 @@
 	<link data-id="temp-gauge" rel="import" href="sections/temp-gauge.html">
 	<link data-id="motor-gauge" rel="import" href="sections/motor-gauge.html">
 	<link data-id="battery-gauge" rel="import" href="sections/battery-gauge.html">
-	<!-- <link data-id="led" rel="import" href="sections/led.html"> -->
+	<link data-id="settings" rel="import" href="sections/settings.html">
 
 	<!-- Style -->
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
@@ -70,7 +70,7 @@
 					</div>
 				</div>
 
-				<!-- Video and map widget controls -->
+				<!-- Video and Map Tab -->
 				<div class="col-xs-8">
 					<div class="content">
 						<ul class="nav nav-pills orange">
@@ -80,15 +80,11 @@
 					</div>
 
 					<div class='tab-content'>
-
-						<!-- Front facing video -->
 						<div id="mainvideo" class='tab-pane fade in active'>
 							<div class="row">
 								<h1>I'll be a video someday maybe</h1>
 							</div>
 						</div>
-
-						<!-- Map of vehicle location -->
 						<div id="map" class='tab-pane fade'>
 							<div class="row">
 								<h1>I'll be a map someday maybe</h1>
@@ -97,15 +93,19 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<!-- <div class="col-xs-12" id="led"></div> -->
-			</div>
 		</div>
 
 		<!-- Motors -->
 		<div id="menu1" class='tab-pane fade'>
 			<div class="row">
 				<div align="center" class="col-xs-4" id="motor-gauge"></div>
+			</div>
+		</div>
+
+		<!-- Settings -->
+		<div id="menu2" class='tab-pane fade'>
+			<div class="row">
+				<div align="center" class="col-xs-12" id="settings"></div>
 			</div>
 		</div>
 	</div>
