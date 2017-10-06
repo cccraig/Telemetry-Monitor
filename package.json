@@ -4,7 +4,8 @@
   "description": "A Robot and UAV Telemetry Monitor",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "install": "electron-rebuild"
   },
   "repository": "https://github.com/cccraig/Telemetry-Monitor",
   "keywords": [
@@ -15,13 +16,15 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.8",
+    "electron-rebuild": "^1.6.0"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "canvas-gauges": "^2.1.4",
     "electron-settings": "^3.1.2",
     "electron-tabs": "^0.7.3",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "serialport": "^5.0.0"
   }
 }
