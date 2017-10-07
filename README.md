@@ -11,8 +11,12 @@ git clone https://github.com/cccraig/Telemetry-Monitor.git
 cd Telemetry-Monitor
 
 npm install
+```
 
-# You may need to rebuild serialport against Electron's version of nodejs
+#### Rebuilding serialport
+You may need to rebuild serialport to use the version of nodejs included with Electron instead of the system version. This **should** be done automatically when you run ```npm install``` on a fresh clone. If not, the following (or something similar) should work.
+```
 rm -rf node_modules/serialport/build/* 
 node_modules/.bin/electron-rebuild -w serialport -f 
 ls node_modules/serialport/build/Release
+```
