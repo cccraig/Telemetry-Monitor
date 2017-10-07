@@ -5,4 +5,14 @@ This is a project intended to make a nice telemetry (and possible control) inter
 ### Installation
 Make sure you have electron and npm installed and running on your system. An FYI I had trouble getting npm install to work properly (Running Linux Mint 18.2) untill I upgraded nodejs to v6.11.4LTS. I suggest using the electron-quick start test your installation first.
 
-Now clone or download the repository, cd into it and run npm install. To start the app run npm start.
+```
+git clone https://github.com/cccraig/Telemetry-Monitor.git
+
+cd Telemetry-Monitor
+
+npm install
+
+# You may need to rebuild serialport against Electron's version of nodejs
+rm -rf node_modules/serialport/build/* 
+node_modules/.bin/electron-rebuild -w serialport -f 
+ls node_modules/serialport/build/Release
