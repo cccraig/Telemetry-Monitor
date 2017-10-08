@@ -1,1 +1,6 @@
 node_modules/**
+sections/battery-gauge.html
+sections/compass.html
+sections/motor-gauge.html
+sections/speed-gauge.html
+sections/temp-gauge.html
