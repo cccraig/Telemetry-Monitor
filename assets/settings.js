@@ -1,14 +1,14 @@
 $(function() {
-
-	// Populate form with submitted data
 	const Store = require('electron-store');
 	const store = new Store()
+	const userSettings = store.get('settings');
 
-	let data = store.get('settings');
-
-	if (data != undefined) {
-		$.each(data, function(name, value) {
-			$("input[name='" + name + "'").val(value)
+	if (userSettings != undefined) {
+		$.each(userSettings, function(name, value) {
+			$.each(value, function(n, v) {
+				s = "#settings input[name='" + name + "-" + n + "']";
+				$(s).val(v)
+			});
 		});
 	}
 
@@ -17,12 +17,22 @@ $(function() {
 
 		event.preventDefault();
 
-		let values = {};
+		let values = {
+			battery: {},
+			temperature: {},
+			speed: {}
+		};
 
-		let data = $("#settings :input");
+		let userSettings = $("#settings :input").not(':button');
 
-		data.each(function() {
-			values[this.name] = $(this).val();
+		userSettings.each(function() {
+
+			let parsed = this.name.split('-');
+			let gauge = parsed[0];
+			let option = parsed[1];
+
+			values[gauge][option] = $(this).val();
+			
 		});
 
 		store.set('settings', values);
