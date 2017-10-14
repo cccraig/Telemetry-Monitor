@@ -4,37 +4,8 @@ const RadialGauge = canvas.RadialGauge;
 
 
 let Store = require('electron-store');
-let store = new Store()
+let store = new Store();
 let userSettings = store.get('settings');
-
-
-class BatteryGauge extends BaseGauge {
-
-    constructor(options) {
-
-        // Higher voltage is better
-        options['highlights'] = [
-            { from: options.minValue, to: options.x, color: 'rgba(255,30,0,.25)' },
-            { from: options.x, to: options.y, color: 'rgba(255,255,0,.25)' },
-            { from: options.y, to: options.maxValue, color: 'rgba(0,255,0,.25)' }
-        ]
-
-        // Inherit all options
-        super(options);
-    }
-
-    draw() {
-        return this;
-    }
-}
-
-
-
-
-
-
-
-
 
 
 
@@ -42,6 +13,36 @@ class BatteryGauge extends BaseGauge {
 class Master {
 
     constructor(settings) {
+        if (settings == undefined) {
+            settings = {
+                "battery": {
+                    "minValue": 0,
+                    "x": 24,
+                    "y": 36,
+                    "maxValue": 48,
+                    "units": "Volts",
+                    "majorTicks": 11,
+                    "minorTicks": 5
+                },
+                "temperature": {
+                    "minValue": 0,
+                    "x": 65,
+                    "y": 85,
+                    "maxValue": 100,
+                    "units": "C",
+                    "majorTicks": 11,
+                    "minorTicks": 3},
+                "speed": {
+                    "minValue": 0,
+                    "x": 15,
+                    "y": 20,
+                    "maxValue": 25,
+                    "units": "km/h",
+                    "majorTicks": 6,
+                    "minorTicks": 2}
+            }
+        }
+
         let cbs = settings.battery;
         let css = settings.speed;
         let cts = settings.temperature;
