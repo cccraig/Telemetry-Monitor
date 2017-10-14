@@ -8,8 +8,6 @@ let store = new Store();
 let userSettings = store.get('settings');
 
 
-
-
 class Master {
 
     constructor(settings) {
