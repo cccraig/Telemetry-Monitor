@@ -66,13 +66,13 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class='tab-content'>
 		<!-- Home -->
 		<div id="home" class='tab-pane fade in active'>
 			<div class="row">
 				<div class="col-xs-2">
-					
+
 					<div class="row"><div align="center" class="col-xs-12"><canvas id="compass"</canvas></div></div>
 					<div class="row"><div align="center" class="col-xs-12"><canvas id="speed-gauge"></canvas></div></div>
 					<div class="row"><div align="center" class="col-xs-12"><canvas id="temperature-gauge"></canvas></div></div>
@@ -87,7 +87,7 @@
 							</div>
 						</div>
 						<div class="col-xs-4" style="padding: 5px 0px 10px 0px;">
-							<select class="form-control" id="serialports"></select>
+							<select class="form-control" name="serialports" id="serialports"></select>
 						</div>
 						<div class="col-xs-4" style="padding: 5px 0px 10px 10px;">
 							<select class="form-control" id="bauds">
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 						<div class="col-xs-8" style="padding: 5px 0px 10px 0px;">
-							<input type="text" class="form-control" id="msg" readonly placeholder="Error Alerts">
+							<input type="text" class="form-control" id="error_msg" readonly placeholder="Error Alerts">
 						</div>
 					</div>
 
@@ -153,28 +153,30 @@
 
 
 	<script>
-		require('./assets/settings');
-		require('./assets/gauges');
-		require('./assets/imports');
-		require('./assets/serial');
+		$(function() {
+			require('./assets/settings');
+			require('./assets/gauges');
+			require('./assets/imports');
+			require('./assets/serial');
 
-		let constraints = {
-			audio: true,
-			video: {
-				width: { min: 1024, ideal: 1280, max: 1920 },
-				height: { min: 776, ideal: 720, max: 1080 }
-			}
-		};
+			let constraints = {
+				audio: true,
+				video: {
+					width: { min: 1024, ideal: 1280, max: 1920 },
+					height: { min: 776, ideal: 720, max: 1080 }
+				}
+			};
 
-		navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+			navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 
-			let video = document.querySelector('video');
-			video.src = window.URL.createObjectURL(stream);
+				let video = document.querySelector('video');
+				video.src = window.URL.createObjectURL(stream);
 
-		}).catch(function(err) {
+			}).catch(function(err) {
 
-			console.log(err);
+				console.log(err);
 
+			});
 		});
 	</script>
 </body>
