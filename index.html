@@ -16,9 +16,9 @@
 	<link rel="stylesheet" href="assets/css/led.css"/>
 
 	<style>
-		body {
+		/*body {
 			overflow: hidden;
-		}
+		}*/
 		video {
 			object-fit: fill;
 		}
@@ -33,6 +33,11 @@
 		}
 		.content {
 			width: 100%;
+		}
+
+		.error {
+			width: 97.8%;
+			margin: 0px -50px 0px 15px;
 		}
 
 		#video-frame {
@@ -89,24 +94,22 @@
 							</select>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-xs-1"></div>
-						<div class="col-xs-2">
-							<div class="led-box">
-								<div id="alerts" class="led-green"></div>
-							</div>
-						</div>
-						<div class="col-xs-8" style="padding: 5px 0px 10px 0px;">
-							<input type="text" class="form-control" id="error_msg" readonly placeholder="Error Alerts">
-						</div>
-					</div>
 				</div>
 
 				<!-- Video and Map Tab -->
 				<div class="col-xs-10">
 						<div class="row">
 			        	<video id="video-frame" autoplay controls></video>
+						</div>
+						<div class="row">
+							<div class="col-xs-1">
+								<div class="led-box">
+									<div id="alerts" class="led-green"></div>
+								</div>
+							</div>
+							<div class="col-xs-11">
+								<input type="text" class="form-control error" id="error_msg" readonly placeholder="Error Alerts">
+							</div>
 						</div>
 				</div>
 			</div>
@@ -140,8 +143,10 @@
 			let constraints = {
 				audio: true,
 				video: {
-					width: { min: 1024, ideal: 1280, max: 1920 },
-					height: { min: 776, ideal: 720, max: 1080 }
+					width: {min:1024, ideal:1280, max:1920},
+					height: {ideal:720, max:1080}
+					//width: { min: 1024, ideal: 1280, max: 1920 },
+					//height: { min: 776, ideal: 720, max: 1080 }
 				}
 			};
 
