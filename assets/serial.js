@@ -1,4 +1,4 @@
-const SerialPort = require('serialport')
+const SerialPort = require('serialport');
 const Store = require('electron-store');
 const store = new Store()
 const defaultPort = store.get('default_serial');
@@ -22,8 +22,8 @@ class Communication {
 
   setDefaultPort() {
     // Specify an onchange event for serial port and baud rate
-    document.getElementById('serialports').onchange = Communication.updateSerialPort;
-    document.getElementById('bauds').onchange = Communication.updateSerialPort;
+    document.getElementById('serialports').onchange = this.updateSerialPort.bind(this);
+    document.getElementById('bauds').onchange = this.updateSerialPort.bind(this);
 
     // Select the default port
     if(this.defaultPort === undefined) {
@@ -64,21 +64,29 @@ class Communication {
   }
 
 
-  static updateSerialPort() {
+  updateSerialPort() {
     let portBox = document.getElementById('serialports');
-    let port = portBox.options[portBox.selectedIndex].value;
+    let com = portBox.options[portBox.selectedIndex].value;
 
     let baudBox = document.getElementById('bauds');
     let baud = baudBox.options[baudBox.selectedIndex].value;
-    console.log(portBox.selectedIndex)
+
     let update = {
-      "port":port,
+      "port":com,
       "baud":baud,
       "port_index": portBox.selectedIndex,
       "baud_index": baudBox.selectedIndex
     }
 
+    this.defaultPort = update
+
     store.set('default_serial', update);
+
+    if(this.port.isOpen) {
+      this.port.close(this.msg);
+    }
+
+    this.openDefaultPort();
   }
 
 
