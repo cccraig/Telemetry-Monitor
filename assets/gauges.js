@@ -153,11 +153,23 @@ class Master {
         for(i=n;i>=0;i--) { ret[i] = Math.ceil((i*b+(n-i)*a)/n); }
         return ret;
     }
+
+
+    resizeCanvas() {
+      $('.dash').each(function(key, el) {
+        let dash_width = el.offsetWidth;
+        let gauge_id = el.querySelector('canvas').id;
+        let w = Math.floor(dash_width / 1.625);
+
+        document.getElementById(gauge_id).dataset.width = w;
+        document.getElementById(gauge_id).dataset.height = w;
+      });
+    }
 }
 
 
 const master = new Master(userSettings);
-var battery = new RadialGauge(master.cbs).draw();
-var temperature = new RadialGauge(master.cts).draw();
-var speed = new RadialGauge(master.css).draw();
-var compass = new RadialGauge(master.cps).draw();
+const battery = new RadialGauge(master.cbs).draw();
+const temperature = new RadialGauge(master.cts).draw();
+const speed = new RadialGauge(master.css).draw();
+const compass = new RadialGauge(master.cps).draw();
