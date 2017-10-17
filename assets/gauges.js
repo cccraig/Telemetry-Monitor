@@ -102,9 +102,9 @@ class Master {
     compassConfig() {
 
         return {
-            renderTo: "compass",
             width: 200,
             height: 200,
+            renderTo: "compass",
             minValue: 0,
             maxValue: 360,
             majorTicks: ["N","NE","E","SE","S","SW","W","NW","N"],
@@ -161,15 +161,27 @@ class Master {
         let gauge_id = el.querySelector('canvas').id;
         let w = Math.floor(dash_width / 1.625);
 
-        document.getElementById(gauge_id).dataset.width = w;
-        document.getElementById(gauge_id).dataset.height = w;
+        gauges[key].update({height: w, width: w});
+
       });
+
+
     }
 }
 
+var master = new Master(userSettings);
+let battery = new RadialGauge(master.cbs);
+let temperature = new RadialGauge(master.cts);
+let speed = new RadialGauge(master.css);
+let compass = new RadialGauge(master.cps);
 
-const master = new Master(userSettings);
-const battery = new RadialGauge(master.cbs).draw();
-const temperature = new RadialGauge(master.cts).draw();
-const speed = new RadialGauge(master.css).draw();
-const compass = new RadialGauge(master.cps).draw();
+var gauges = [battery, temperature, speed, compass];
+
+battery.draw();
+temperature.draw();
+speed.draw();
+compass.draw();
+
+master.resizeCanvas();
+
+window.addEventListener('resize', master.resizeCanvas, false);
