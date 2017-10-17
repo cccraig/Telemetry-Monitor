@@ -51,6 +51,10 @@ class Communication {
     }
   }
 
+  indicate(x=false) {
+    document.getElementById.className = x ? "led-green" : "led-yellow";
+  }
+
 
   openDefaultPort() {
     let com = this.defaultPort["port"];
@@ -60,6 +64,7 @@ class Communication {
     this.port = new SerialPort(com, {"baudRate":parseInt(baud)}, Communication.msg);
     this.port.pipe(new SerialPort.parsers.Readline());
     parser.on('data', console.log);
+    parser.on('open', this.indicate.bind(this, 1));
     this.port.write('respond\n');
   }
 
@@ -95,6 +100,9 @@ class Communication {
       err = err.msg;
     }
     document.getElementById('error_msg').value = err;
+
+    document.getElementById.className = "led-yellow";
+
     console.log(err)
   }
 
