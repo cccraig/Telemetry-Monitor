@@ -10,9 +10,11 @@
 
 	<!-- Templates -->
 	<link data-id="settings" rel="import" href="sections/settings.html">
+	<link data-id="peripherals" rel="import" href="sections/peripherals.html">
 
 	<!-- Style -->
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="node_modules/chartist/dist/chartist.min.css"/>
 	<link rel="stylesheet" href="assets/css/led.css"/>
 
 	<style>
@@ -129,10 +131,8 @@
 		</div>
 
 		<!-- Motors -->
-		<div id="menu1" class='tab-pane fade'>
-			<div class="row">
-				<div align="center" class="col-xs-4" id="motor-gauge"></div>
-			</div>
+		<div id="menu1" class='tab-pane fade in active'>
+			<div class="row" id="peripherals"></div>
 		</div>
 
 		<!-- Settings -->
@@ -152,6 +152,7 @@
 			require('./assets/settings');
 			require('./assets/gauges');
 			require('./assets/serial');
+			require('./assets/peripherals');
 
 			let constraints = {
 				audio: true,
