@@ -1,0 +1,35 @@
+# Development Thoughts
+As I work on this, sometimes ideas pop into my head but I'm not ready to implement them just yet. To keep on track, I made this file so I could pause for a second, jot the thought down, and then continue with what I was working on.
+
+##### Store robot configurations
+Since the software already uses a settings module, take advantage of this to save the JSON configuration for different telemetry setups. That way a simple select box can be used to switch between different projects easily.
+
+##### JSON configuration
+Send telemetry as a data object in JSON.
+
+data = {
+  heading: robot heading in degrees,
+  power: The primary battery voltage or fuel level. The gauge is configurable so it just needs to be configured for the proper data for your setup.,
+  temperature: The temperature of the main control electronics (BeagleBone, Raspberry Pi, Jetson) or a motor. Again the gauge is configurable.
+  speed: How fast the robot is traveling.
+  peripherals: {
+    motor_1: {
+      amperage: amps,
+      voltage: volts,
+      speed: rpm
+    },
+    motor_2: {
+      amperage: amps,
+      voltage: volts,
+      speed: rpm
+    },
+    gps: {
+      latitude: 96,
+      longitude: 96,
+      elevation: 3600,
+      satellites: 6
+    },
+    air_temp: 30 celcius
+    barometer: 20psi
+  }
+}

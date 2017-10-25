@@ -2,6 +2,9 @@ const Store = require('electron-store');
 const store = new Store()
 const userSettings = store.get('settings');
 
+// Make store global
+global.app_special_user_settings = store;
+
 if (userSettings != undefined) {
 	$.each(userSettings, function(name, value) {
 		$.each(value, function(n, v) {

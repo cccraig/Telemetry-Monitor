@@ -1,8 +1,11 @@
 const SerialPort = require('serialport');
-const Store = require('electron-store');
-const store = new Store()
+const store = global.app_special_user_settings;
 const defaultPort = store.get('default_serial');
 
+// Create a mock port for testing
+const TestSerial = require('serialport/test');
+const MockBinding = SerialPort.Binding;
+MockBinding.createPort('/dev/ROBOT', { echo: true, record: true });
 
 class Communication {
 
@@ -52,7 +55,7 @@ class Communication {
   }
 
   indicate(x=false) {
-    document.getElementById.className = x ? "led-green" : "led-yellow";
+    document.getElementById("signal").className = x ? "led-green" : "led-yellow";
   }
 
 
@@ -62,9 +65,10 @@ class Communication {
     let parser = new SerialPort.parsers.Readline();
 
     this.port = new SerialPort(com, {"baudRate":parseInt(baud)}, Communication.msg);
-    this.port.pipe(new SerialPort.parsers.Readline());
-    parser.on('data', console.log);
-    parser.on('open', this.indicate.bind(this, 1));
+    this.port.pipe(parser);
+    this.port.on('open', this.indicate.bind(this, 1));
+    this.port.on('ready', ()=> {console.log("i'm ready")});
+    this.port.on('data', ()=>{console.log("Ready/n")});
     this.port.write('respond\n');
   }
 
@@ -96,14 +100,14 @@ class Communication {
 
 
   static msg(err) {
-    if(err.msg !== undefined) {
+    if(err !== null && err.msg !== undefined) {
       err = err.msg;
     }
     document.getElementById('error_msg').value = err;
 
-    document.getElementById.className = "led-yellow";
+    document.getElementById("signal").className = "led-yellow";
 
-    console.log(err)
+    // console.log(err)
   }
 
 

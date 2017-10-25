@@ -1,5 +1,42 @@
 <template class="task-template">
-	<div class="col-xs-8">
-		<div id="chart1" class="ct-chart ct-double-octave"></div>
+	<div class="row">
+		<div class="col-xs-8">
+			<div id="motor_amperage" class="ct-chart ct-double-octave"></div>
+		</div>
+		<div class="col-xs-4">
+			<table class="table table-striped">
+				<thead class="thead-inverse">
+					<tr>
+						<th><h3>Environment Data</h3></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tr>
+					<th>Latitude:</th>
+					<th>36</th>
+				</tr>
+				<tr>
+					<th>Longitude:</th>
+					<th>89</th>
+				</tr>
+				<tr>
+					<th>Elevation:</th>
+					<th>600</th>
+				</tr>
+				<tr>
+					<th>Satellites:</th>
+					<th>7</th>
+				</tr>
+				<tr>
+					<th>Temperature:</th>
+					<th>25</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-8">
+			<div id="motor_voltage" class="ct-chart ct-double-octave"></div>
+		</div>
 	</div>
 </template>

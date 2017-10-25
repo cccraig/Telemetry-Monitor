@@ -1,12 +1,7 @@
 const canvas = require('canvas-gauges');
-const BaseGauge = canvas.BaseGauge;
 const RadialGauge = canvas.RadialGauge;
-
-
-let Store = require('electron-store');
-let store = new Store();
+let store = global.app_special_user_settings;
 let userSettings = store.get('settings');
-
 
 class Master {
 
@@ -160,12 +155,8 @@ class Master {
         let dash_width = el.offsetWidth;
         let gauge_id = el.querySelector('canvas').id;
         let w = Math.floor(dash_width / 1.625);
-
         gauges[key].update({height: w, width: w});
-
       });
-
-
     }
 }
 
@@ -177,11 +168,17 @@ let compass = new RadialGauge(master.cps);
 
 var gauges = [battery, temperature, speed, compass];
 
-battery.draw();
-temperature.draw();
-speed.draw();
-compass.draw();
+for (var i = 0; i < gauges.length; i++) {
+  gauges[i].draw();
+}
 
 master.resizeCanvas();
 
 window.addEventListener('resize', master.resizeCanvas, false);
+
+setInterval(function() {
+  w = Math.random() * 20;
+  for (var i = 0; i < gauges.length; i++) {
+    gauges[i].update({"value":w});
+  }
+}, 1000);
