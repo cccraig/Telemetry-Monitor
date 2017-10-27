@@ -3,66 +3,66 @@ const RadialGauge = canvas.RadialGauge;
 let store = global.app_special_user_settings;
 let userSettings = store.get('settings');
 
-class Master {
+class Guages {
 
-    constructor(settings) {
-        if (settings == undefined) {
-            settings = {
-                "battery": {
-                    "minValue": 0,
-                    "x": 24,
-                    "y": 36,
-                    "maxValue": 48,
-                    "units": "Volts",
-                    "majorTicks": 11,
-                    "minorTicks": 5
-                },
-                "temperature": {
-                    "minValue": 0,
-                    "x": 65,
-                    "y": 85,
-                    "maxValue": 100,
-                    "units": "C",
-                    "majorTicks": 11,
-                    "minorTicks": 3},
-                "speed": {
-                    "minValue": 0,
-                    "x": 15,
-                    "y": 20,
-                    "maxValue": 25,
-                    "units": "km/h",
-                    "majorTicks": 6,
-                    "minorTicks": 2}
-            }
-        }
+  constructor(settings) {
+      if (settings == undefined) {
+          settings = {
+              battery: {
+                  minValue: 0,
+                  x: 24,
+                  y: 36,
+                  maxValue: 48,
+                  units: 'Volts',
+                  majorTicks: 11,
+                  minorTicks: 5,
+              },
+              temperature: {
+                  minValue: 0,
+                  x: 65,
+                  y: 85,
+                  maxValue: 100,
+                  units: 'C',
+                  majorTicks: 11,
+                  minorTicks: 3, },
+              speed: {
+                  minValue: 0,
+                  x: 15,
+                  y: 20,
+                  'maxValue': 25,
+                  "units": "km/h",
+                  "majorTicks": 6,
+                  "minorTicks": 2}
+          }
+      }
 
-        let cbs = settings.battery;
-        let css = settings.speed;
-        let cts = settings.temperature;
+      let cbs = settings.battery;
+      let css = settings.speed;
+      let cts = settings.temperature;
 
-        cbs['majorTicks'] = this.linspace(cbs['minValue'], cbs['maxValue'], cbs['majorTicks']);
-        css['majorTicks'] = this.linspace(css['minValue'], css['maxValue'], css['majorTicks']);
-        cts['majorTicks'] = this.linspace(cts['minValue'], cts['maxValue'], cts['majorTicks']);
+      cbs['majorTicks'] = this.linspace(cbs['minValue'], cbs['maxValue'], cbs['majorTicks']);
+      css['majorTicks'] = this.linspace(css['minValue'], css['maxValue'], css['majorTicks']);
+      cts['majorTicks'] = this.linspace(cts['minValue'], cts['maxValue'], cts['majorTicks']);
 
-        cbs['renderTo'] = "battery-gauge";
-        css['renderTo'] = "speed-gauge";
-        cts['renderTo'] = "temperature-gauge";
+      cbs['renderTo'] = "battery-gauge";
+      css['renderTo'] = "speed-gauge";
+      cts['renderTo'] = "temperature-gauge";
 
-        cbs = Object.assign({}, cbs, this.baseConfig(cbs));
-        css = Object.assign({}, css, this.baseConfig(css));
-        cts = Object.assign({}, cts, this.baseConfig(cts));
+      cbs = Object.assign({}, cbs, this.baseConfig(cbs));
+      css = Object.assign({}, css, this.baseConfig(css));
+      cts = Object.assign({}, cts, this.baseConfig(cts));
 
-        cbs['highlights'] = [
-            { from: cbs.minValue, to: cbs.x, color: 'rgba(255,30,0,.25)' },
-            { from: cbs.x, to: cbs.y, color: 'rgba(255,255,0,.25)' },
-            { from: cbs.y, to: cbs.maxValue, color: 'rgba(0,255,0,.25)' }
-        ]
+      cbs['highlights'] = [
+          { from: cbs.minValue, to: cbs.x, color: 'rgba(255,30,0,.25)' },
+          { from: cbs.x, to: cbs.y, color: 'rgba(255,255,0,.25)' },
+          { from: cbs.y, to: cbs.maxValue, color: 'rgba(0,255,0,.25)' }
+      ]
 
-        this.cbs = cbs
-        this.css = css
-        this.cts = cts
-        this.cps = this.compassConfig();
-    }
+      this.cbs = cbs
+      this.css = css
+      this.cts = cts
+      this.cps = this.compassConfig();
+  }
 
 
     baseConfig(opts) {
@@ -160,7 +160,7 @@ class Master {
     }
 }
 
-var master = new Master(userSettings);
+var master = new Gauges(userSettings);
 let battery = new RadialGauge(master.cbs);
 let temperature = new RadialGauge(master.cts);
 let speed = new RadialGauge(master.css);

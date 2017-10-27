@@ -14,6 +14,17 @@ cd Telemetry-Monitor
 npm install
 ```
 
+If the installation fails, saying something like "failed at electron-rebuild", try installing nodejs 6.11.4LTS. More information is available [here](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions), but I've included the necessary terminal commands for completeness.
+```
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+It's also possible you are missing build tools.
+```
+sudo apt-get install -y build-essential
+```
+
 #### Rebuilding serialport
 You may need to rebuild serialport to use the version of nodejs included with Electron instead of the system version. This **should** be done automatically when you run ```npm install``` on a fresh clone. If not, the following (or something similar) should work. It removes the existing serial port binaries, then rebuilds them against the local version of nodejs in electron.
 ```

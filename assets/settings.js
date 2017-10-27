@@ -1,42 +1,55 @@
 const Store = require('electron-store');
-const store = new Store()
-const userSettings = store.get('settings');
 
-// Make store global
-global.app_special_user_settings = store;
+class Settings {
 
-if (userSettings != undefined) {
-	$.each(userSettings, function(name, value) {
-		$.each(value, function(n, v) {
-			s = "#settings input[name='" + name + "-" + n + "']";
-			$(s).val(v)
+  constructor() {
+    this.store = new Store();
+    this.settings = this.store.get('settings');
+		this.populate();
+		this.catchFormSubmit();
+  }
+
+
+  populate() {
+		for (const [name, value] of Object.entries(this.settings)) {
+		  for (const [n, v] of Object.entries(value)) {
+		    const s = "input[name='" + name + "-" + n + "']";
+		    document.querySelector(s).value = v;
+		  }
+		}
+  }
+
+
+	catchFormSubmit() {
+
+		var settings_form = document.querySelector("#form_settings");
+
+		settings_form.addEventListener("submit", function(e) {
+
+			event.preventDefault();
+
+			let data = {};
+
+			let settings = document.querySelectorAll('#form_settings input');
+
+			const l = settings.length;
+
+			for (var i = 0; i < l; i++) {
+				let input_name = settings[i].name;
+		    let parsed = input_name.split('-');
+		    const name = parsed[0];
+		    const option = parsed[1];
+				const value = settings[i].value;
+
+				if (name in data) {
+					data[name][option] = value;
+				} else {
+					data[name] = {};
+				}
+			}
+			store.set('settings', data);
 		});
-	});
+	}
 }
 
-// Catch form submit
-$("#settings").submit(function(e) {
-
-	event.preventDefault();
-
-	let values = {
-		battery: {},
-		temperature: {},
-		speed: {}
-	};
-
-	let userSettings = $("#settings :input").not(':button');
-
-	userSettings.each(function() {
-
-		let parsed = this.name.split('-');
-		let gauge = parsed[0];
-		let option = parsed[1];
-
-		values[gauge][option] = $(this).val();
-
-	});
-
-	store.set('settings', values);
-
-});
+module.exports = Settings;
