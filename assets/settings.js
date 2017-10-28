@@ -11,12 +11,14 @@ class Settings {
 
 
   populate() {
-		for (const [name, value] of Object.entries(this.settings)) {
-		  for (const [n, v] of Object.entries(value)) {
-		    const s = "input[name='" + name + "-" + n + "']";
-		    document.querySelector(s).value = v;
-		  }
-		}
+    if(this.settings !== undefined) {
+  		for (const [name, value] of Object.entries(this.settings)) {
+  		  for (const [n, v] of Object.entries(value)) {
+  		    const s = "input[name='" + name + "-" + n + "']";
+  		    document.querySelector(s).value = v;
+  		  }
+  		}
+    }
   }
 
 
@@ -28,7 +30,7 @@ class Settings {
 
 			event.preventDefault();
 
-			let data = {};
+			let data = {}
 
 			let settings = document.querySelectorAll('#form_settings input');
 
@@ -44,7 +46,7 @@ class Settings {
 				if (name in data) {
 					data[name][option] = value;
 				} else {
-					data[name] = {};
+					data[name] = {}
 				}
 			}
 			store.set('settings', data);
