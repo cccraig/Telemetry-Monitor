@@ -1,9 +1,7 @@
 const canvas = require('canvas-gauges');
 const RadialGauge = canvas.RadialGauge;
-let store = global.app_special_user_settings;
-let userSettings = store.get('settings');
 
-class Guages {
+class Gauges {
   constructor(settings) {
     if (settings == undefined) {
       settings = {
@@ -43,9 +41,9 @@ class Guages {
     css.majorTicks = this.linspace(css.minValue, css.maxValue, css.majorTicks);
     cts.majorTicks = this.linspace(cts.minValue, cts.maxValue, cts.majorTicks);
 
-    cbs.renderTo = 'battery-gauge';
-    css.renderTo = 'speed-gauge';
-    cts.renderTo = 'temperature-gauge';
+    cbs.renderTo = 'power';
+    css.renderTo = 'speedometer';
+    cts.renderTo = 'thermometer';
 
     cbs = Object.assign({}, cbs, this.baseConfig(cbs));
     css = Object.assign({}, css, this.baseConfig(css));
@@ -61,15 +59,20 @@ class Guages {
     this.css = css;
     this.cts = cts;
     this.cps = this.compassConfig();
+
+    this.RadialGauge = canvas.RadialGauge;
+    this.makeGauges();
+    this.resizeCanvas();
+    window.addEventListener('resize', this.resizeCanvas.bind(this), false);
   }
 
   baseConfig(opts) {
-
     return {
         width: 200,
         height: 200,
         title: false,
         value: 0,
+        borders: false,
         strokeTicks: false,
         colorPlate: '#4f4d4d',
         colorMajorTicks: '#f5f5f5',
@@ -122,12 +125,7 @@ class Guages {
         needleStart: 75,
         needleEnd: 99,
         needleWidth: 3,
-        borders: true,
-        borderInnerWidth: 0,
-        borderMiddleWidth: 0,
-        borderOuterWidth: 10,
-        colorBorderOuter: '#ccc',
-        colorBorderOuterEnd: '#ccc',
+        borders: false,
         colorNeedleShadowDown: '#222',
         borderShadowWidth: 0,
         animationDuration: 1500,
@@ -148,34 +146,29 @@ class Guages {
   }
 
   resizeCanvas() {
-    $('.dash').each(function (key, el) {
-      let dashWidth = el.offsetWidth;
-      let gaugeId = el.querySelector('canvas').id;
+    let elements = document.querySelectorAll('.dash');
+    let l = elements.length;
+
+    for (var i = 0; i < l; i++) {
+      let dashWidth = elements[i].offsetWidth;
+      let gaugeId = elements[i].querySelector('canvas').id;
       let w = Math.floor(dashWidth / 1.625);
-      gauges[key].update({ height: w, width: w });
-    });
+      this.gaugeList[gaugeId].update({ height: w, width: w });
+    }
+  }
+
+  makeGauges() {
+    this.gaugeList = {
+      power: new this.RadialGauge(this.cbs),
+      thermometer: new this.RadialGauge(this.cts),
+      speedometer: new this.RadialGauge(this.css),
+      compass: new RadialGauge(this.cps),
+    };
+
+    for (const [name, gauge] of Object.entries(this.gaugeList)) {
+      gauge.draw();
+    }
   }
 }
 
-var master = new Gauges(userSettings);
-let battery = new RadialGauge(master.cbs);
-let temperature = new RadialGauge(master.cts);
-let speed = new RadialGauge(master.css);
-let compass = new RadialGauge(master.cps);
-
-var gauges = [battery, temperature, speed, compass];
-
-for (var i = 0; i < gauges.length; i++) {
-  gauges[i].draw();
-}
-
-master.resizeCanvas();
-
-window.addEventListener('resize', master.resizeCanvas, false);
-
-setInterval(function () {
-  w = Math.random() * 20;
-  for (var i = 0; i < gauges.length; i++) {
-    gauges[i].update({ value: w });
-  }
-}, 1000);
+module.exports = Gauges;

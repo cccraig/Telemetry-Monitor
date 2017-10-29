@@ -4,6 +4,7 @@ class Settings {
   constructor() {
     this.store = new Store();
     this.settings = this.store.get('settings');
+    this.defaultPort = this.store.get('defaultPort');
     this.populate();
     this.catchFormSubmit();
   }

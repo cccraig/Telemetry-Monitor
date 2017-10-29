@@ -1,10 +1,10 @@
 const Chartist = require('chartist');
 const Legend = require('chartist-plugin-legend');
 
-class Graphics {
+class Peripherals {
   constructor() {
-    this.x_labels = [-30,-29,-28,-27,-26,-25,-24,-23,-22,-21,-20,-19,-18,-17,-16, -15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0];
-    this.series = [[],[],[],[]];
+    this.x_labels = this.range(-30, 0);
+    this.series = [[], [], [], []];
     this.legend_names = ['Motor 1', 'Motor 2', 'Motor 3', 'Motor 5'];
     this.chart_name = 'motor_amperage';
     this.chart = '';
@@ -13,7 +13,7 @@ class Graphics {
       fullWidth: true,
       chartPadding: {
         right: 10,
-        top: 30
+        top: 30,
       },
       lineSmooth: Chartist.Interpolation.cardinal({
         fillHoles: true,
@@ -22,12 +22,27 @@ class Graphics {
       plugins: [
         new Legend({
           legendNames: this.legend_names,
-        })
-      ]
+        }),
+      ],
     };
+
+    this.draw();
+
+    // Want to use vanilla javascript to force the chart redraw.
+    // the below works but is to slow, i.e. you see the mini chart before
+    // it gets drawn large.
+    // let p = document.querySelector('#menu1');
+    // p.addEventListener('transitionend', this.update.bind(this), true);
+    $('a[data-toggle=tab]').on('shown.bs.tab', this.update.bind(this));
   }
 
+  test() {
+    setTimeout(this.update.bind(this), 200);
+  }
 
+  range(start, end) {
+    return Array(end - start + 1).fill().map((_, idx) => start + idx);
+  }
 
   draw() {
     this.chart = new Chartist.Line('#' + this.chart_name, {
@@ -36,21 +51,18 @@ class Graphics {
     }, this.options);
   }
 
-
-
   update() {
-    this.chart.update({"labels":this.x_labels, "series":this.series});
+    this.chart.update({ labels: this.x_labels, series: this.series });
   }
-
-
 
   simulate() {
     let n = this.series[0].length;
 
     for (var i = 0; i < this.series.length; i++) {
-      if(n == 30) {
+      if (n == 30) {
         this.series[i].shift();
       }
+
       this.series[i].push(Math.random() * 10);
     }
 
@@ -58,14 +70,15 @@ class Graphics {
   }
 }
 
+module.exports = Peripherals;
 
-var g = new Graphics();
-g.draw();
-
-$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-  g.update();
-});
-
-setInterval(function() {
-  g.simulate();
-}, 1000);
+// var g = new Graphics();
+// g.draw();
+//
+// $('a[data-toggle='tab']').on('shown.bs.tab', function(e) {
+//   g.update();
+// });
+//
+// setInterval(function() {
+//   g.simulate();
+// }, 1000);

@@ -152,7 +152,7 @@
 			<div class="content">
 				<ul class="nav nav-pills">
 					<li class="active"><a data-toggle="tab" href="#home">Main</a></li>
-					<li><a data-toggle="tab" href="#menu1">Motors</a></li>
+					<li><a id='peripheral_tab' data-toggle="tab" href="#menu1">Motors</a></li>
 					<li><a data-toggle="tab" href="#menu2">Options</a></li>
 				</ul>
 			</div>
@@ -168,13 +168,13 @@
 						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="compass"></canvas></div>
 					</div>
 					<div class="row">
-						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="speed-gauge"></canvas></div>
+						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="speedometer"></canvas></div>
 					</div>
 					<div class="row">
-						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="temperature-gauge"></canvas></div>
+						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="thermometer"></canvas></div>
 					</div>
 					<div class="row">
-						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="battery-gauge"></canvas></div>
+						<div align="center" class="col-xs-12 dash"><canvas class="gauge" id="power"></canvas></div>
 					</div>
 					<div align="center">
 						<table style="width:100%">
@@ -265,16 +265,16 @@
 			}
 		};
 
-		navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-
-			let video = document.querySelector('video');
-			video.src = window.URL.createObjectURL(stream);
-
-		}).catch(function(err) {
-
-			console.log(err);
-
-		});
+		// navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    //
+		// 	let video = document.querySelector('video');
+		// 	video.src = window.URL.createObjectURL(stream);
+    //
+		// }).catch(function(err) {
+    //
+		// 	console.log(err);
+    //
+		// });
 	});
 	</script>
 </body>
