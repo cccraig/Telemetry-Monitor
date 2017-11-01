@@ -1,37 +1,46 @@
 // Simple functions to produce fake data for testing
-var interval = 1000;
-var min = 5;
-var max = 20;
-var f = (function() {
-  return ((Math.random() * max) + min);
-});
-
-setInterval(function() {
-  let data = {
-    "heading": f(),
-    "power": f(),
-    "temperature": f(),
-    "speed": f(),
-    "peripherals": {
-      "motor_1": {
-        "amperage": f(),
-        "voltage": f(),
-        "speed": f()
-      },
-      "motor_2": {
-        "amperage": f(),
-        "voltage": f(),
-        "speed": f()
-      },
-      "gps": {
-        "latitude": f(),
-        "longitude": f(),
-        "elevation": f(),
-        "satellites": f()
-      },
-      "air_temp": f(),
-      "barometer": f()
-    }
+class Faker {
+  constructor(interval=1000, min=5, max=20) {
+    this.interval = interval;
+    this.min = min;
+    this.max = max;
+    this.f = (function () {
+      return ((Math.random() * max) + min);
+    });
   }
-  console.log(data.heading);
-}, interval);
+
+  start() {
+    this.data = {
+      system: {
+        compass: this.f(),
+        power: this.f(),
+        thermometer: this.f(),
+        speedometer: this.f(),
+      },
+      peripherals: {
+        motors: {
+          motor_0: {
+            amperage: this.f(),
+            voltage: this.f(),
+            speed: this.f(),
+          },
+          motor_1: {
+            amperage: this.f(),
+            voltage: this.f(),
+            speed: this.f(),
+          },
+        },
+        gps: {
+          latitude: this.f(),
+          longitude: this.f(),
+          elevation: this.f(),
+          satellites: this.f(),
+        },
+        air_temp: this.f(),
+        barometer: this.f(),
+      },
+    };
+  }
+}
+
+module.exports = Faker;

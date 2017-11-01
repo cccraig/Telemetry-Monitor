@@ -4,8 +4,8 @@ const Legend = require('chartist-plugin-legend');
 class Peripherals {
   constructor() {
     this.x_labels = this.range(-30, 0);
-    this.series = [[], [], [], []];
-    this.legend_names = ['Motor 1', 'Motor 2', 'Motor 3', 'Motor 5'];
+    this.series = [[], []];
+    this.legend_names = ['Motor 1', 'Motor 2'];
     this.chart_name = 'motor_amperage';
     this.chart = '';
     this.options = {
@@ -34,10 +34,6 @@ class Peripherals {
     // let p = document.querySelector('#menu1');
     // p.addEventListener('transitionend', this.update.bind(this), true);
     $('a[data-toggle=tab]').on('shown.bs.tab', this.update.bind(this));
-  }
-
-  test() {
-    setTimeout(this.update.bind(this), 200);
   }
 
   range(start, end) {
@@ -71,14 +67,3 @@ class Peripherals {
 }
 
 module.exports = Peripherals;
-
-// var g = new Graphics();
-// g.draw();
-//
-// $('a[data-toggle='tab']').on('shown.bs.tab', function(e) {
-//   g.update();
-// });
-//
-// setInterval(function() {
-//   g.simulate();
-// }, 1000);

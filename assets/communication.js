@@ -7,9 +7,12 @@ MockBinding.createPort('/dev/ROBOT', { echo: true, record: true });
 
 class Communication {
 
-  constructor(store) {
+  constructor(store, gaugeObj, peripheralObj) {
     this.store = store;
     this.defaultPort = store.defaultPort;
+    this.gaugeObj = gaugeObj;
+    this.peripheralObj = peripheralObj;
+    this.indicator = false;
   }
 
   listPorts(err, ports) {
@@ -66,14 +69,12 @@ class Communication {
   openDefaultPort() {
     let com = this.defaultPort.port;
     let baud = this.defaultPort.baud;
-    let parser = new SerialPort.parsers.Readline();
+    this.parser = new SerialPort.parsers.Readline();
 
     this.port = new SerialPort(com, { baudRate: parseInt(baud) }, Communication.msg);
-    this.port.pipe(parser);
-    this.port.on('open', this.indicate.bind(this, 1));
-    this.port.on('ready', ()=> { console.log('ready'); });
-    this.port.on('data', ()=> { console.log('Ready/n'); });
-    this.port.write('respond\n');
+    this.port.pipe(this.parser);
+    this.parser.on('open', this.indicate.bind(this, 1));
+    this.parser.on('data', this.parse.bind(this));
   }
 
   updateSerialPort() {
@@ -107,9 +108,40 @@ class Communication {
     }
 
     document.getElementById('error_msg').value = err;
-
     document.getElementById('signal').className = 'led-yellow';
+  }
 
+  parse(data) {
+    try {
+      data = JSON.parse(data);
+      let peripherals = data.peripherals;
+      let motors = peripherals.motors;
+      let system = data.system;
+
+      for (const [name, gauge] of Object.entries(this.gaugeObj.gaugeList)) {
+        gauge.update({ value: system[name] });
+      }
+
+      if (this.indicator) {
+        let n = this.peripheralObj.series[0].length;
+
+        for (var i = 0; i < this.peripheralObj.series.length; i++) {
+          if (n == 30) {
+            this.peripheralObj.series[i].shift();
+          }
+
+          this.peripheralObj.series[i].push(motors['motor_' + i].amperage);
+        }
+
+        this.peripheralObj.update();
+
+        // this.peripheralObj.update();
+      } else {
+        this.indicator = true;
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   static populateComList(port, val=0) {
