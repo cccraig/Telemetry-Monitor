@@ -4,6 +4,7 @@
 <head>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta charset="UTF-8">
 	<title></title>
 
@@ -242,40 +243,35 @@
 
 
 <script>
-  $(function() {
-	  require('./assets/imports');
-		require('./assets/master');
-		// require('./assets/settings');
-		// require('./assets/gauges');
-		// require('./assets/serial');
-		// require('./assets/peripherals');
+$(function () {
+  require('./assets/imports');
+  require('./assets/master');
 
-		let constraints = {
-			audio: true,
-			video: {
-				width: {
-					min: 1024,
-					ideal: 1280,
-					max: 1920
-				},
-				height: {
-					ideal: 720,
-					max: 1080
-				}
-			}
-		};
+  let constraints = {
+    audio: true,
+    video: {
+      width: {
+        min: 1024,
+        ideal: 1280,
+        max: 1920,
+      },
+      height: {
+        ideal: 720,
+        max: 1080,
+      },
+    },
+  };
 
-		// navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-    //
-		// 	let video = document.querySelector('video');
-		// 	video.src = window.URL.createObjectURL(stream);
-    //
-		// }).catch(function(err) {
-    //
-		// 	console.log(err);
-    //
-		// });
-	});
+  // navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+  //
+  //   let video = document.querySelector('video');
+  //   video.src = window.URL.createObjectURL(stream);
+  //
+  // }).catch(function (err) {
+  //
+  //   console.log(err);
+  // });
+});
 	</script>
 </body>
 
